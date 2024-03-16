@@ -10,12 +10,12 @@ let closeModal = document.querySelector(".close-modal");
 let products = [];
 let cart = [];
 
-iconCart.addEventListener("click", () => {
-  body.classList.toggle("showCart");
-});
-closeCart.addEventListener("click", () => {
-  body.classList.toggle("showCart");
-});
+// iconCart.addEventListener("click", () => {
+//   body.classList.toggle("showCart");
+// });
+// closeCart.addEventListener("click", () => {
+//   body.classList.toggle("showCart");
+// });
 
 const addDataToHTML = () => {
   // remove datas default from HTML
@@ -186,9 +186,29 @@ function newFunction() {
   return "click";
 }
 
-openModal.addEventListener("click", () => {
-  modal.showModal;
+const displayModal = (product) => {
+  let modal = document.querySelector(".modal");
+  modal.innerHTML = `
+    <img src="${product.image}" alt="">
+    <h2>${product.name}</h2>
+    <p class="description">${product.description}</p>
+    <div class="price">قیمت:تومان${product.price}</div>
+    <button class="close-modal">بستن</button>
+  `;
+  modal.style.display = "block";
+};
+
+document.body.addEventListener("click", (event) => {
+  if (event.target.classList.contains("open-modal")) {
+    let productId = event.target.parentElement.dataset.id;
+    let product = products.find((item) => item.id == productId);
+    displayModal(product);
+  }
 });
-closeModal.addEventListener("click", () => {
-  modal.close;
+
+document.body.addEventListener("click", (event) => {
+  if (event.target.classList.contains("close-modal")) {
+    let modal = document.querySelector(".modal");
+    modal.style.display = "none";
+  }
 });
